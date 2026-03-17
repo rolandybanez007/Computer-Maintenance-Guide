@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Computer Maintenance Activity Guide</title>
+
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background: #f2f4f7; color: #333; }
+header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 35px; text-align: center; }
+nav { background: #222; padding: 12px; text-align: center; }
+nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+nav a:hover { color: #4da3ff; }
+.nav-btn { background: transparent; color: white; margin: 0 10px; padding: 8px 16px; border: 2px solid transparent; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s ease; }
+.nav-btn:hover { background: #4da3ff; border-color: #4da3ff; transform: translateY(-1px); }
+.nav-btn.active { background: #4da3ff; border-color: #4da3ff; }
+section { background: white; margin: 30px auto; padding: 30px; max-width: 1000px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: none; }
+section.active { display: block; }
+h2 { color: #1e3c72; }
+details { margin-top: 15px; background: #f4f6f8; padding: 15px; border-radius: 6px; }
+details summary { font-weight: bold; cursor: pointer; color: #1e3c72; }
+iframe { width: 100%; height: 315px; margin-top: 20px; border-radius: 6px; border: none; }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+button { margin-top: 15px; padding: 12px 20px; background: #1e3c72; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; }
+button:hover { background: #2a5298; }
+.comment { background: #f4f6f8; padding: 15px; border-left: 5px solid #1e3c72; margin-top: 15px; border-radius: 5px; }
+.quiz-box { background: #f9fbff; padding: 15px; margin-top: 15px; border-radius: 8px; border: 1px solid #cbd5e1; }
+.quiz-question { margin-top: 15px; padding: 12px; background: #ffffff; border-radius: 6px; border: 1px solid #ddd; }
+.quiz-question p { margin: 0; font-weight: bold; }
+.result-box { margin-top: 20px; padding: 15px; border-radius: 6px; background: #e9f5ff; border-left: 5px solid #1e3c72; }
+footer { background: #1e3c72; color: white; text-align: center; padding: 15px; }
+
+/* Enhanced Quiz Styles */
+.quiz-container { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin: 20px 0; }
+.quiz-header { text-align: center; color: white; margin-bottom: 25px; }
+.progress-bar { width: 100%; height: 25px; background: rgba(255,255,255,0.3); border-radius: 15px; overflow: hidden; margin: 15px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #4CAF50, #8BC34A); transition: width 0.5s ease; border-radius: 15px; }
+.quiz-timer { font-size: 18px; font-weight: bold; color: white; text-align: center; margin: 10px 0; }
+.question-card { background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+.question-card:hover { transform: translateY(-2px); }
+.option-button { width: 100%; padding: 15px; margin: 8px 0; border: 2px solid #e0e0e0; border-radius: 8px; background: white; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: #333; font-weight: 500; }
+.option-button:hover { background: #f5f5f5; border-color: #667eea; transform: translateX(5px); color: #1a1a1a; }
+.option-button.correct { background: #4CAF50; color: white; border-color: #4CAF50; font-weight: bold; }
+.option-button.incorrect { background: #f44336; color: white; border-color: #f44336; font-weight: bold; }
+.option-button.disabled { pointer-events: none; opacity: 0.7; }
+.quiz-controls { text-align: center; margin: 20px 0; }
+.next-btn { background: linear-gradient(135deg, #4CAF50, #8BC34A); color: white; padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+.next-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(76,175,80,0.3); }
+.next-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.leaderboard { background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.leaderboard h3 { color: #1e3c72; text-align: center; margin-bottom: 20px; }
+.leaderboard-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; margin: 8px 0; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; }
+.leaderboard-item.top-1 { border-left-color: #FFD700; background: linear-gradient(90deg, #FFD70020, #f8f9fa); }
+.leaderboard-item.top-2 { border-left-color: #C0C0C0; background: linear-gradient(90deg, #C0C0C020, #f8f9fa); }
+.leaderboard-item.top-3 { border-left-color: #CD7F32; background: linear-gradient(90deg, #CD7F3220, #f8f9fa); }
+.rank-badge { font-weight: bold; font-size: 18px; color: #1e3c72; }
+.score-badge { background: #667eea; color: white; padding: 5px 12px; border-radius: 15px; font-weight: bold; }
+.performance-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+.stat-card { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e9ecef; }
+.stat-value { font-size: 24px; font-weight: bold; color: #667eea; }
+.stat-label { font-size: 14px; color: #6c757d; margin-top: 5px; }
+.quiz-start-screen { text-align: center; padding: 40px; background: white; border-radius: 12px; }
+.start-btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px 40px; border: none; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; margin: 10px; }
+.start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(102,126,234,0.3); }
+.category-selector { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+.category-btn { padding: 12px 25px; border: 2px solid #667eea; background: white; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
+.category-btn:hover { background: #667eea; color: white; }
+.category-btn.selected { background: #667eea; color: white; }
+
+/* Checklist Styles */
+.checklist-container { margin: 20px 0; }
+.checklist-item { display: flex; align-items: center; padding: 12px; margin: 8px 0; background: #f8f9fa; border-radius: 8px; border: 2px solid #e9ecef; transition: all 0.3s ease; }
+.checklist-item:hover { background: #e9ecef; transform: translateX(5px); }
+.checklist-item.completed { background: #d4edda; border-color: #28a745; }
+.checklist-item.completed .checklist-text { text-decoration: line-through; color: #6c757d; }
+.checklist-checkbox { width: 20px; height: 20px; margin-right: 15px; cursor: pointer; }
+.checklist-text { flex: 1; font-size: 16px; line-height: 1.5; }
+.checklist-progress { margin: 15px 0; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: center; font-weight: bold; }
+.progress-bar-container { width: 100%; height: 30px; background: #e9ecef; border-radius: 15px; overflow: hidden; margin: 10px 0; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); transition: width 0.5s ease; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+
+/* Dark Mode Styles */
+body.dark-mode { background: #1a1a1a; color: #e0e0e0; }
+body.dark-mode header { background: linear-gradient(135deg, #0f3460, #16213e); }
+body.dark-mode nav { background: #0d1117; }
+body.dark-mode .nav-btn { color: #e0e0e0; border-color: transparent; }
+body.dark-mode .nav-btn:hover { background: #0366d6; border-color: #0366d6; }
+body.dark-mode .nav-btn.active { background: #0366d6; border-color: #0366d6; }
+body.dark-mode section { background: #2d3748; color: #e0e0e0; }
+body.dark-mode h2 { color: #63b3ed; }
+body.dark-mode h3 { color: #63b3ed; }
+body.dark-mode h4 { color: #63b3ed; }
+body.dark-mode p { color: #e0e0e0; }
+body.dark-mode details { background: #4a5568; }
+body.dark-mode details summary { color: #63b3ed; }
+body.dark-mode .checklist-item { background: #4a5568; border-color: #2d3748; color: #e0e0e0; }
+body.dark-mode .checklist-item:hover { background: #2d3748; }
+body.dark-mode .checklist-item.completed { background: #2f855a; border-color: #38a169; }
+body.dark-mode .checklist-progress { background: #2c5282; color: #e0e0e0; }
+body.dark-mode .quiz-container { background: linear-gradient(135deg, #4c1d95, #5b21b6); }
+body.dark-mode .question-card { background: #2d3748; color: #e0e0e0; }
+body.dark-mode .option-button { background: #4a5568; color: #e0e0e0; border-color: #2d3748; }
+body.dark-mode .option-button:hover { background: #2d3748; border-color: #4c1d95; color: #e0e0e0; }
+body.dark-mode .leaderboard { background: #2d3748; color: #e0e0e0; }
+body.dark-mode .leaderboard-item { background: #4a5568; border-left-color: #4c1d95; }
+body.dark-mode .leaderboard h3 { color: #63b3ed; }
+body.dark-mode .comment { background: #4a5568; border-left-color: #4c1d95; }
+body.dark-mode .quiz-box { background: #2d3748; border-color: #4a5568; }
+body.dark-mode .quiz-question { background: #4a5568; border-color: #2d3748; }
+body.dark-mode .quiz-start-screen { background: #2d3748; color: #e0e0e0; }
+body.dark-mode .category-btn { background: #4a5568; color: #e0e0e0; border-color: #2d3748; }
+body.dark-mode .category-btn:hover { background: #2d3748; }
+body.dark-mode .category-btn.selected { background: #4c1d95; color: #ffffff; }
+body.dark-mode .start-btn { background: #4c1d95; color: #ffffff; }
+body.dark-mode .start-btn:hover { background: #5a2d91; }
+body.dark-mode input[type="text"], body.dark-mode input[type="email"], body.dark-mode textarea { 
+  background: #4a5568; color: #e0e0e0; border-color: #2d3748; 
+}
+body.dark-mode .submit-btn { background: #4c1d95; color: #ffffff; }
+body.dark-mode .submit-btn:hover { background: #5a2d91; }
+
+/* Enhanced Reflection Styles */
+.reflection-item { background: #f4f6f8; padding: 15px; border-left: 5px solid #1e3c72; margin-top: 15px; border-radius: 5px; position: relative; }
+.reflection-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.reflection-name { font-weight: bold; color: #1e3c72; }
+.reflection-date { font-size: 12px; color: #666; }
+.reflection-text { margin: 10px 0; line-height: 1.5; }
+.delete-reflection-btn { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px; transition: background 0.3s ease; }
+.delete-reflection-btn:hover { background: #c82333; }
+body.dark-mode .reflection-item { background: #4a5568; border-left-color: #4c1d95; }
+body.dark-mode .reflection-name { color: #63b3ed; }
+body.dark-mode .reflection-date { color: #9ca3af; }
+body.dark-mode .delete-reflection-btn { background: #7f1d1d; }
+body.dark-mode .delete-reflection-btn:hover { background: #991b1b; }
+
+/* Quiz Progress Management Styles */
+.quiz-progress-info { background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; }
+.attempts-remaining { font-weight: bold; color: #1e3c72; }
+.delete-progress-btn { background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin: 10px 5px; transition: background 0.3s ease; }
+.delete-progress-btn:hover { background: #c82333; }
+.delete-progress-btn:disabled { background: #6c757d; cursor: not-allowed; }
+body.dark-mode .quiz-progress-info { background: #2c5282; color: #e0e0e0; }
+body.dark-mode .attempts-remaining { color: #63b3ed; }
+body.dark-mode .delete-progress-btn { background: #7f1d1d; }
+body.dark-mode .delete-progress-btn:hover { background: #991b1b; }
+body.dark-mode .delete-progress-btn:disabled { background: #4a5568; }
+/* Dark Mode Toggle Button */
+.dark-mode-toggle { position: fixed; top: 20px; right: 20px; background: #1e3c72; color: white; border: none; border-radius: 50px; padding: 10px 20px; cursor: pointer; font-size: 16px; font-weight: bold; z-index: 1000; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.dark-mode-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+body.dark-mode .dark-mode-toggle { background: #fbbf24; color: #1a1a1a; }
+
+/* Responsive Design for Home Screen Grids */
+@media (max-width: 768px) {
+  .benefit-card, .stat-card {
+    grid-column: 1 / -1 !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<header>
+  <h1>Computer Maintenance Activity Guide</h1>
+  <p>For TVL-CSS Learners | Maintenance Skills Development</p>
+</header>
+
+<nav>
+  <button onclick="showSection('home')" class="nav-btn">Home</button>
+  <button onclick="showSection('tools')" class="nav-btn">Tools Gallery</button>
+  <button onclick="showSection('components')" class="nav-btn">System Unit Parts</button>
+  <button onclick="showSection('hardware')" class="nav-btn">Hardware Maintenance</button>
+  <button onclick="showSection('software')" class="nav-btn">Software Maintenance</button>
+  <button onclick="showSection('quiz')" class="nav-btn">Quiz</button>
+  <button onclick="showSection('reflection')" class="nav-btn">Reflection</button>
+</nav>
+
+<section id="home">
+  <h2>About This Website</h2>
+  <p>
+    This website was created as a learning guide for TVL-CSS learners to strengthen their computer
+    maintenance skills through step-by-step procedures, safety reminders, and project-based practice.
+  </p>
+  <p>
+    It provides both hardware and software maintenance instructions to help students perform tasks
+    such as cleaning computer parts, checking hardware condition, updating software, scanning viruses,
+    and optimizing system performance.
+  </p>
+  <p>
+    The purpose of this website is to support hands-on learning and allow learners to reflect on their
+    experience and test their knowledge through a quiz.
+  </p>
+
+  <!-- Interactive Learning Path -->
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; margin: 30px 0; text-align: center; color: white;">
+    <h3 style="color: white; margin-bottom: 20px;">🎯 Your Learning Journey</h3>
+    <div style="display: grid; grid-template-areas: 'top1 top2' 'middle middle' 'bottom1 bottom2'; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+      <div class="interactive-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; grid-area: top1;" onclick="showSection('tools')">
+        <div style="font-size: 2em; margin-bottom: 10px;">🔧</div>
+        <h4 style="color: white; margin: 0;">Step 1: Tools</h4>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">Learn essential maintenance tools</p>
+      </div>
+      <div class="interactive-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; grid-area: top2;" onclick="showSection('components')">
+        <div style="font-size: 2em; margin-bottom: 10px;">💻</div>
+        <h4 style="color: white; margin: 0;">Step 2: Components</h4>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">Understand computer parts</p>
+      </div>
+      <div class="interactive-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; grid-area: middle; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;" onclick="showSection('reflection')">
+        <div style="font-size: 2em; margin-bottom: 10px;">💭</div>
+        <h4 style="color: white; margin: 0;">Reflect & Learn</h4>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">Share your experience</p>
+      </div>
+      <div class="interactive-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; grid-area: bottom1;" onclick="showSection('hardware')">
+        <div style="font-size: 2em; margin-bottom: 10px;">⚙️</div>
+        <h4 style="color: white; margin: 0;">Step 3: Hardware</h4>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">Practice hardware maintenance</p>
+      </div>
+      <div class="interactive-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; grid-area: bottom2;" onclick="showSection('quiz')">
+        <div style="font-size: 2em; margin-bottom: 10px;">🎮</div>
+        <h4 style="color: white; margin: 0;">Step 4: Quiz</h4>
+        <p style="color: rgba(255,255,255,0.9); margin: 5px 0;">Test your knowledge</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>🔧 Why Computer Maintenance is Important</h3>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+    <div class="benefit-card" style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #1e3c72; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="toggleBenefitDetails('performance')">
+      <h4 style="color: #1e3c72; margin-top: 0;">📈 Performance Optimization</h4>
+      <p style="font-size: 0.9em; color: #666;">Regular maintenance keeps your computer running at peak performance.</p>
+      <div style="margin-top: 15px; font-size: 0.8em; color: #1e3c72; font-weight: bold;" id="performance-toggle">Click to learn more ▼</div>
+      <div id="performance-details" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">
+        <p style="font-size: 0.9em; color: #666;">Clean hardware and optimized software prevent slowdowns, crashes, and system freezes. Regular updates and cleanup ensure your system runs smoothly and efficiently.</p>
+      </div>
+    </div>
+    <div class="benefit-card" style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #28a745; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="toggleBenefitDetails('lifespan')">
+      <h4 style="color: #28a745; margin-top: 0;">�️ Extended Lifespan</h4>
+      <p style="font-size: 0.9em; color: #666;">Proper care and maintenance can extend your computer's life.</p>
+      <div style="margin-top: 15px; font-size: 0.8em; color: #28a745; font-weight: bold;" id="lifespan-toggle">Click to learn more ▼</div>
+      <div id="lifespan-details" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">
+        <p style="font-size: 0.9em; color: #666;">With proper maintenance, your computer can last 3-5 years longer, saving you significant money on costly replacements and repairs.</p>
+      </div>
+    </div>
+    <div class="benefit-card" style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="toggleBenefitDetails('security')">
+      <h4 style="color: #ffc107; margin-top: 0;">🔒 Data Security</h4>
+      <p style="font-size: 0.9em; color: #666;">Regular updates and scans protect your personal information.</p>
+      <div style="margin-top: 15px; font-size: 0.8em; color: #ffc107; font-weight: bold;" id="security-toggle">Click to learn more ▼</div>
+      <div id="security-details" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">
+        <p style="font-size: 0.9em; color: #666;">Software updates and virus scans protect your personal information from malware, hackers, and data breaches, keeping your sensitive data safe.</p>
+      </div>
+    </div>
+    <div class="benefit-card" style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #dc3545; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="toggleBenefitDetails('savings')">
+      <h4 style="color: #dc3545; margin-top: 0;">💰 Cost Savings</h4>
+      <p style="font-size: 0.9em; color: #666;">Preventive maintenance is much cheaper than emergency repairs.</p>
+      <div style="margin-top: 15px; font-size: 0.8em; color: #dc3545; font-weight: bold;" id="savings-toggle">Click to learn more ▼</div>
+      <div id="savings-details" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">
+        <p style="font-size: 0.9em; color: #666;">A well-maintained computer reduces unexpected breakdowns and service costs, saving you money in the long run compared to emergency repairs.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎯 Key Benefits of Regular Maintenance</h3>
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+      <div class="stat-card" style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="font-size: 2em; margin-bottom: 10px;">⚡</div>
+        <h4 style="margin: 0 0 10px 0;">Faster Performance</h4>
+        <p style="font-size: 0.9em; opacity: 0.9; margin: 0;">Boot times reduced by 50% or more</p>
+      </div>
+      <div class="stat-card" style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="font-size: 2em; margin-bottom: 10px;">🌡️</div>
+        <h4 style="margin: 0 0 10px 0;">Better Cooling</h4>
+        <p style="font-size: 0.9em; opacity: 0.9; margin: 0;">Prevents overheating and damage</p>
+      </div>
+      <div class="stat-card" style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="font-size: 2em; margin-bottom: 10px;">🔋</div>
+        <h4 style="margin: 0 0 10px 0;">Energy Efficiency</h4>
+        <p style="font-size: 0.9em; opacity: 0.9; margin: 0;">Lower power consumption</p>
+      </div>
+      <div class="stat-card" style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="font-size: 2em; margin-bottom: 10px;">📊</div>
+        <h4 style="margin: 0 0 10px 0;">Reliability</h4>
+        <p style="font-size: 0.9em; opacity: 0.9; margin: 0;">99% uptime with proper care</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>📚 What You'll Learn</h3>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+    <div class="skill-card" style="background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#bbdefb'" onmouseout="this.style.background='#e3f2fd'">
+      <strong style="color: #2196f3; font-size: 1.1em;">🔧 Hardware Skills:</strong>
+      <p style="margin: 10px 0 0 0; color: #1976d2;">Physical cleaning, component inspection, cable management, and replacement procedures</p>
+      <div style="margin-top: 10px; font-size: 0.9em; color: #2196f3;">
+        <div style="font-weight: bold;">✓ Hands-on practice</div>
+        <div style="font-weight: bold;">✓ Safety protocols</div>
+        <div style="font-weight: bold;">✓ Tool mastery</div>
+      </div>
+    </div>
+    <div class="skill-card" style="background: #f3e5f5; padding: 20px; border-radius: 8px; border-left: 4px solid #9c27b0; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#e1bee1'" onmouseout="this.style.background='#f3e5f5'">
+      <strong style="color: #9c27b0; font-size: 1.1em;">💻 Software Skills:</strong>
+      <p style="margin: 10px 0 0 0; color: #7b1fa2;">System updates, virus protection, performance optimization, and data backup strategies</p>
+      <div style="margin-top: 10px; font-size: 0.9em; color: #9c27b0;">
+        <div style="font-weight: bold;">✓ Update management</div>
+        <div style="font-weight: bold;">✓ Security best practices</div>
+        <div style="font-weight: bold;">✓ Performance tuning</div>
+      </div>
+    </div>
+    <div class="skill-card" style="background: #e8f5e8; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#c8e6c9'" onmouseout="this.style.background='#e8f5e8'">
+      <strong style="color: #4caf50; font-size: 1.1em;">🛡️ Safety Practices:</strong>
+      <p style="margin: 10px 0 0 0; color: #388e3c;">Proper handling of electronic components, ESD protection, and workspace safety</p>
+      <div style="margin-top: 10px; font-size: 0.9em; color: #4caf50;">
+        <div style="font-weight: bold;">✓ ESD prevention</div>
+        <div style="font-weight: bold;">✓ Workspace safety</div>
+        <div style="font-weight: bold;">✓ Emergency procedures</div>
+      </div>
+    </div>
+    <div class="skill-card" style="background: #fff3e0; padding: 20px; border-radius: 8px; border-left: 4px solid #ff9800; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#ffe0b2'" onmouseout="this.style.background='#fff3e0'">
+      <strong style="color: #ff9800; font-size: 1.1em;">🔍 Troubleshooting:</strong>
+      <p style="margin: 10px 0 0 0; color: #f57c00;">Identifying common problems and implementing effective solutions</p>
+      <div style="margin-top: 10px; font-size: 0.9em; color: #ff9800;">
+        <div style="font-weight: bold;">✓ Problem diagnosis</div>
+        <div style="font-weight: bold;">✓ Solution implementation</div>
+        <div style="font-weight: bold;">✓ Prevention strategies</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Quick Stats -->
+  <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin: 30px 0; text-align: center; border: 2px solid #e9ecef;">
+    <h3 style="color: #1e3c72; margin-bottom: 20px;">📊 Quick Learning Stats</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+      <div class="stat-box" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size: 2.5em; color: #1e3c72; margin-bottom: 10px;">15+</div>
+        <h4 style="color: #1e3c72; margin: 0;">Tools to Master</h4>
+        <p style="color: #666; margin: 5px 0 0 0;">Essential maintenance equipment</p>
+      </div>
+      <div class="stat-box" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size: 2.5em; color: #28a745; margin-bottom: 10px;">11</div>
+        <h4 style="color: #28a745; margin: 0;">Components to Learn</h4>
+        <p style="color: #666; margin: 5px 0 0 0;">Core computer parts</p>
+      </div>
+      <div class="stat-box" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size: 2.5em; color: #ffc107; margin-bottom: 10px;">23</div>
+        <h4 style="color: #ffc107; margin: 0;">Maintenance Steps</h4>
+        <p style="color: #666; margin: 5px 0 0 0;">Hardware & software tasks</p>
+      </div>
+      <div class="stat-box" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size: 2.5em; color: #dc3545; margin-bottom: 10px;">20+</div>
+        <h4 style="color: #dc3545; margin: 0;">Quiz Questions</h4>
+        <p style="color: #666; margin: 5px 0 0 0;">Test your knowledge</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+    <h2>Maintenance Tools Gallery</h2>
+    <p>Essential tools used for maintaining and repairing computer hardware. Each tool plays a crucial role in ensuring proper maintenance and safety.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="screwdriver.jfif" alt="Screwdriver" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Screwdrivers</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Types:</strong> Phillips #0, #1, #2 and Flathead screwdrivers</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Opening cases, securing components, adjusting hardware</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Tips:</strong> Use magnetic tips for small screws, avoid over-tightening</p>
+        </div>
+        
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+          <img src="strap.jpg" alt="Anti-static strap" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Anti-Static Wrist Strap</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Prevents Electrostatic Discharge (ESD)</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Importance:</strong> Protects sensitive components from static damage</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Usage:</strong> Connect to grounded metal surface before handling components</p>
+        </div>
+        
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="air" alt="Compressed Air" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Compressed Air / Blower</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Removes dust from hard-to-reach areas</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Targets:</strong> Fans, heat sinks, keyboard crevices, ports</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Safety:</strong> Hold upright, short bursts, keep distance from components</p>
+        </div>
+        
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="brush.jfif" alt="Soft brush" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Soft Brush / Paintbrush</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Type:</strong> Anti-static natural bristle brush</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Dusting motherboards, RAM slots, fan blades</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Benefits:</strong> Gentle cleaning without static buildup</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="softcloth.jpg" alt="Microfiber cloth" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Microfiber Cloth</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Material:</strong> Ultra-fine synthetic fibers</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Wiping screens, surfaces, delicate components</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Advantages:</strong> Lint-free, scratch-free, highly absorbent</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="alchohol.jfif" alt="Isopropyl alcohol" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Isopropyl Alcohol (70%+)</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Concentration:</strong> 70-90% isopropyl alcohol</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Cleaning thermal paste, stubborn grime, contacts</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Caution:</strong> Apply with cloth, never pour directly on components</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="mask.jpg" alt="Face mask" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Face Mask</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Type:</strong> N95 or dust mask recommended</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Protection from dust inhalation</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>When to use:</strong> During compressed air cleaning, old systems</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="gloves.jpg" alt="Safety gloves" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">Safety Gloves</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Type:</strong> Nitrile or latex gloves</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Protection:</strong> From sharp edges, cuts, contamination</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Best for:</strong> Working with metal cases, sharp components</p>
+        </div>
+
+        <!-- Additional Tools -->
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="flashlight" alt="Flashlight" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🔦 Flashlight/Headlamp</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Illumination inside dark cases</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Features:</strong> LED, adjustable focus, magnetic base</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Essential for:</strong> Cable management, component inspection</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="Ties.jfif" alt="Cable ties" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🧹 Cable Ties/Zip Ties</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Cable management and organization</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Benefits:</strong> Improves airflow, reduces tangling</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Tips:</strong> Use reusable ties for maintenance access</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="paste.jfif" alt="Thermal paste" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🧪 Thermal Paste Applicator</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Apply thermal compound evenly</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Types:</strong> Plastic cards, specialized applicators</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Importance:</strong> Proper CPU cooling and heat transfer</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="Pliers" alt="Pliers" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🔧 Pliers Set</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Types:</strong> Needle-nose, diagonal cutters, long-nose</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Bending pins, cutting zip ties, gripping small parts</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Caution:</strong> Use insulated pliers for electrical work</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="swabs.jfif" alt="Cleaning swabs" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🧪 Cleaning Swabs</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Type:</strong> Foam-tipped or cotton swabs</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Cleaning tight spaces, ports, connectors</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Best with:</strong> Isopropyl alcohol for precise cleaning</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="multimeter.jfif" alt="Multimeter" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">📏 Multimeter</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Test voltage, resistance, continuity</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> Testing power supplies, checking fuses</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Skill level:</strong> Intermediate to advanced users</p>
+        </div>
+
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s ease; background: white;">
+            <img src="solution.jfif" alt="Cleaning solution" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin:10px 0 5px; color: #1e3c72;">🧽 Cleaning Solution</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Type:</strong> Electronics-safe cleaning solution</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Uses:</strong> General surface cleaning, plastic components</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Important:</strong> Never use on screens or circuits</p>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="components">
+    <h2>System Unit Components</h2>
+    <p>Understand the internal parts that make up a computer system. Each component has a specific function and requires proper maintenance for optimal performance.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="cpu.jpeg.jpg" alt="CPU" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🧠 CPU (Central Processing Unit)</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> The "brain" of the computer</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Executes instructions and processes data</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean heatsink, replace thermal paste, monitor temperature</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Overheating, thermal paste degradation</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="motherboard.webp" alt="Motherboard" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🔌 Motherboard</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Main circuit board</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Connects all components together</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Dust carefully, check capacitors, secure connections</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Capacitor failure, loose connections</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="ram.jpg" alt="RAM" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">💾 RAM (Memory)</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Temporary memory for active data</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Fast access for running applications</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean contacts, reseat modules, check compatibility</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Poor contact, incompatibility, failure</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="psu.jfif" alt="PSU" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">⚡ Power Supply (PSU)</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Converts AC to DC power</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Powers all internal components</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean vents, check fan operation, test voltages</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Fan failure, voltage irregularities, aging</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="hdd.jpg" alt="Storage" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">💿 Storage Drives</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Types:</strong> HDD (Hard Disk) & SSD (Solid State)</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Permanent data storage</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Check health status, defrag HDD, monitor temperature</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Bad sectors, firmware issues, mechanical failure</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="cool" alt="Cooling" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🌡️ Cooling System</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Components:</strong> CPU fans, case fans, heat sinks</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Dissipates heat from components</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean fan blades, check airflow, replace thermal paste</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Dust buildup, fan bearing failure, inadequate cooling</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="gpu.jfif" alt="GPU" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🎮 GPU (Graphics Card)</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Processes graphics and video</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Enhances visual performance</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean fans, update drivers, monitor temperature</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Overheating, driver conflicts, artifacting</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="case.webp" alt="Case" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🖥️ Case/Chassis</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Physical enclosure</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Protects and houses components</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean exterior, check airflow, ensure proper mounting</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Poor airflow, damaged panels, loose screws</p>
+        </div>
+
+        <!-- Additional Components -->
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="soundcard.jfif" alt="Sound card" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🔊 Sound Card</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Audio processing and output</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Provides high-quality sound</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean ports, update drivers, check connections</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Driver problems, port damage, audio distortion</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="networkcard.jfif" alt="Network card" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🌐 Network Card</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Network connectivity</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Enables internet/network access</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Update drivers, check cable connections</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Driver conflicts, hardware failure, connectivity problems</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="cmos.jfif" alt="BIOS battery" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🔌 BIOS/CMOS Battery</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> System settings backup</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Maintains BIOS configuration</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Replace every 3-5 years, clear CMOS when needed</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Dead battery, clock reset, boot problems</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="ODD.jpg" alt="Optical drive" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">💿 Optical Drive</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Function:</strong> Reads/writes CDs/DVDs/Blu-ray</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> Optical media access</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Clean lens, check tray mechanism</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Dirty lens, tray jam, firmware issues</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+            <img src="FPC.jfif" alt="Front panel controls" style="width:100%; height:150px; object-fit:cover; border-radius:5px;">
+            <h4 style="margin: 15px 0 5px; color: #1e3c72;">🎛️ Front Panel Controls</h4>
+            <p style="font-size: 0.9em; color: #666;"><strong>Components:</strong> Power button, reset button, LEDs</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Purpose:</strong> System control and status indication</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Maintenance:</strong> Check connections, test functionality</p>
+            <p style="font-size: 0.9em; color: #666;"><strong>Common Issues:</strong> Loose connections, faulty switches</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="hardware">
+  <h2>Hardware Maintenance</h2>
+
+  <details>
+    <summary>Tools and PPE Needed</summary>
+    <ul>
+      <li>Phillips screwdriver (for system unit screws)</li>
+      <li>Flat screwdriver (optional)</li>
+      <li>Soft brush / paintbrush</li>
+      <li>Compressed air blower (optional but recommended)</li>
+      <li>Microfiber cloth</li>
+      <li>Cotton buds (for corners and ports)</li>
+      <li>Isopropyl alcohol (70% or higher)</li>
+      <li>Anti-static wrist strap (recommended)</li>
+      <li>Face mask (to avoid dust inhalation)</li>
+      <li>Safety gloves (optional)</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Safety Precautions Before Maintenance</summary>
+    <ul>
+      <li>Shut down the computer properly before unplugging.</li>
+      <li>Unplug the power cable and press the power button for 5 seconds to release remaining electricity.</li>
+      <li>Work in a clean, dry, and well-lit area.</li>
+      <li>Avoid touching sensitive components such as RAM pins and motherboard circuits.</li>
+      <li>Do not use water when cleaning internal computer parts.</li>
+    </ul>
+    
+    <h4>Hardware Safety Precautions Video</h4>
+    <iframe
+      src="https://www.youtube.com/embed/TG-1pxSGXU8?si=GHlEP5HsRCc208uA"
+      title="Computer Hardware Safety Precautions"
+      allow="autoplay; encrypted-media; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+
+    <p>If the video shows an error, open it here:</p>
+    <a href="https://www.youtube.com/embed/TG-1pxSGXU8?si=GHlEP5HsRCc208uA" target="_blank" rel="noopener">
+      Click here to watch on YouTube
+    </a>
+  </details>
+
+  <details>
+    <summary>Step-by-Step Hardware Maintenance Procedure</summary>
+    <div class="checklist-progress">
+      <div>Progress: <span id="hardware-progress-text">0/13 completed</span></div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="hardware-progress-bar" style="width: 0%">0%</div>
+      </div>
+    </div>
+    <div class="checklist-container" id="hardware-checklist">
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Power Off and Unplug</b> - Turn off the computer and unplug all cables including monitor, keyboard, and mouse.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Prepare Tools and PPE</b> - Wear mask and gloves. Prepare screwdrivers and cleaning materials.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Open the System Unit</b> - Locate the screws at the back panel, remove them, then slide the side panel carefully.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Check Components</b> - Observe the inside of the system unit and check if there are loose cables or visible damage.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Clean Dust from Fans</b> - Hold the fan blades to prevent spinning, then brush or blow dust away.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Clean Motherboard and RAM Area</b> - Use soft brush gently. Avoid strong pressure.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Clean the Power Supply Area</b> - Blow dust from the PSU vents carefully (do not open the PSU).</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Clean Storage Drives</b> - Wipe around HDD/SSD carefully and ensure connections are secure.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Peripheral Cleaning</b> - Clean keyboard, mouse, and monitor as per guidelines.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Close the System Unit</b> - Put back the side panel and tighten screws properly.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Reconnect Devices</b> - Plug back keyboard, mouse, monitor, and power cable.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Test the Computer</b> - Turn on the computer and ensure everything works properly.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateHardwareProgress()">
+        <span class="checklist-text"><b>Document Maintenance</b> - Record what was done and any issues found for future reference.</span>
+      </div>
+    </div>
+  </details>
+
+  <h3>Hardware Maintenance Tutorial Video</h3>
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/1RkR0RvXEKU?rel=0"
+    title="Hardware Maintenance Tutorial"
+    allow="autoplay; encrypted-media; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen></iframe>
+
+  <p>If the video shows an error, open it here:</p>
+  <a href="https://youtu.be/6FPdURGzmtw?si=VbCmJNS1nR-GYtkh" target="_blank" rel="noopener">
+    Click here to watch on YouTube
+  </a>
+</section>
+
+<section id="software">
+  <h2>Software Maintenance</h2>
+
+  <details>
+    <summary>Safety Precautions Before Software Maintenance</summary>
+    <ul>
+      <li>Back up important data before performing any software maintenance.</li>
+      <li>Create a system restore point before making major changes.</li>
+      <li>Ensure you have administrator privileges for system-level changes.</li>
+      <li>Download software only from official and trusted sources.</li>
+      <li>Keep your antivirus software active during maintenance.</li>
+      <li>Avoid installing multiple antivirus programs simultaneously.</li>
+      <li>Don't close the computer during critical updates or scans.</li>
+    </ul>
+    
+    <h4>Software Safety Precautions Video</h4>
+    <iframe
+      src="https://www.youtube.com/embed/6mMZFoXbKqI?si=9zM4BNY5UInrmM71"
+      title="Computer Software Safety and Security Tips"
+      allow="autoplay; encrypted-media; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+
+    <p>If the video shows an error, open it here:</p>
+    <a href="https://youtu.be/6mMZFoXbKqI?si=9zM4BNY5UInrmM71" target="_blank" rel="noopener">
+      Click here to watch on YouTube
+    </a>
+  </details>
+
+  <details>
+    <summary>Step-by-Step Software Maintenance Procedure</summary>
+    <div class="checklist-progress">
+      <div>Progress: <span id="software-progress-text">0/10 completed</span></div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="software-progress-bar" style="width: 0%">0%</div>
+      </div>
+    </div>
+    <div class="checklist-container" id="software-checklist">
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Connect to the Internet</b> - Ensure WiFi or LAN is connected properly.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Update Operating System</b> - Go to Windows Update settings and install available updates.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Update Antivirus Software</b> - Open antivirus program and update virus definitions.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Run Full Virus Scan</b> - Perform full scan to detect malware, spyware, and viruses.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Delete Temporary Files</b> - Use Disk Cleanup to remove cache and unnecessary temporary files.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Uninstall Unused Programs</b> - Remove programs that are no longer needed to free storage space.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Check Startup Programs</b> - Disable unnecessary startup apps to improve boot speed.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Defragment or Optimize Drives</b> - Use Optimize Drives tool (HDD only; SSD should optimize).</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Restart the Computer</b> - Restart after updates to apply changes.</span>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" class="checklist-checkbox" onchange="updateSoftwareProgress()">
+        <span class="checklist-text"><b>Check System Performance</b> - Observe if the computer runs faster and smoother after maintenance.</span>
+      </div>
+    </div>
+  </details>
+
+  <h3>Software Maintenance Tutorial Video</h3>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/_8aNZZaaoSQ?si=ogW63-BQhHFKOHf7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <p>If the video shows an error, open it here:</p>
+  <a href="https://youtu.be/_8aNZZaaoSQ?si=y9_hUpuQH6oXFe8G" target="_blank" rel="noopener">
+    Click here to watch on YouTube
+  </a>
+</section>
+
+<section id="quiz">
+  <h2>🎮 Maintenance Knowledge Quiz Challenge</h2>
+
+  <div class="quiz-progress-info" id="quizProgressInfo">
+    <div class="attempts-remaining" id="attemptsRemaining">Loading attempt information...</div>
+    <button class="delete-progress-btn" id="deleteProgressBtn" onclick="deleteQuizProgress()">Delete My Progress</button>
+    <p style="font-size: 12px; color: #666; margin-top: 10px;">You can take this quiz twice. Deleting progress will allow you to retake the quiz.</p>
+  </div>
+
+  <div class="quiz-container">
+    <div id="quizStartScreen" class="quiz-start-screen">
+      <h3>🏆 Test Your Computer Maintenance Skills!</h3>
+      <p>Challenge yourself with our interactive quiz featuring 20 questions about computer maintenance.</p>
+      
+      <label style="text-align: center; margin-bottom: 10px;">Enter Your Name</label>
+      <input type="text" id="playerName" placeholder="Enter your full name" style="max-width: 300px; margin: 0 auto 20px;">
+
+      <div class="category-selector">
+        <button class="category-btn selected" onclick="selectCategory('all')">All Questions (20)</button>
+        <button class="category-btn" onclick="selectCategory('hardware')">Hardware Only (10)</button>
+        <button class="category-btn" onclick="selectCategory('software')">Software Only (10)</button>
+      </div>
+
+      <button class="start-btn" onclick="startEnhancedQuiz()">Start Quiz Challenge</button>
+    </div>
+
+    <div id="quizGameArea" style="display: none;">
+      <div class="quiz-header">
+        <h3>🎯 Quiz Challenge</h3>
+        <div class="quiz-timer">⏱️ Time: <span id="timer">00:00</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">20</span></p>
+      </div>
+
+      <div class="question-card">
+        <h4 id="questionText">Loading question...</h4>
+        <div id="optionsContainer"></div>
+      </div>
+
+      <div class="quiz-controls">
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question →</button>
+      </div>
+    </div>
+
+    <div id="quizResults" style="display: none;">
+      <div class="quiz-start-screen">
+        <h3>🎉 Quiz Completed!</h3>
+        <div class="performance-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="finalScore">0</div>
+            <div class="stat-label">Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="accuracy">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="timeTaken">00:00</div>
+            <div class="stat-label">Time Taken</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="performance">-</div>
+            <div class="stat-label">Performance</div>
+          </div>
+        </div>
+        <button class="start-btn" onclick="resetQuiz()">Play Again</button>
+        <button class="start-btn" onclick="viewLeaderboard()">View Leaderboard</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="leaderboard" id="leaderboardSection">
+    <h3>🏆 Top 5 Leaderboard</h3>
+    <div id="leaderboardList"></div>
+    <button class="start-btn" onclick="clearLeaderboard()" style="padding: 8px 20px; font-size: 14px;">Clear Leaderboard</button>
+  </div>
+</section>
+
+<section id="reflection">
+  <h2>Reflection and Feedback</h2>
+
+  <p>After completing the maintenance activities, reflect on your experience by answering these guide questions:</p>
+  <ul>
+    <li>What maintenance task did you find easiest or most difficult?</li>
+    <li>What tools or procedures were new to you?</li>
+    <li>How did this activity help improve your confidence in computer maintenance?</li>
+    <li>What skills do you think you still need to improve?</li>
+  </ul>
+
+  <label>First Name</label>
+  <input type="text" id="fname" required />
+
+  <label>Surname</label>
+  <input type="text" id="lname" required />
+
+  <label>Your Reflection</label>
+  <textarea id="reflectionText" rows="4" required></textarea>
+
+  <button onclick="submitReflection()">Submit Reflection</button>
+
+  <h3>Submitted Reflections</h3>
+  <div id="comments"></div>
+</section>
+
+<footer>
+  <p>&copy; 2025 TVL-CSS Computer Maintenance Project</p>
+</footer>
+
+<script>
+// NAVIGATION SYSTEM
+function showSection(sectionId) {
+  // Hide all sections
+  document.querySelectorAll('section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show selected section
+  document.getElementById(sectionId).classList.add('active');
+  
+  // Update navigation buttons
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Find and activate the corresponding button
+  const buttons = document.querySelectorAll('.nav-btn');
+  const sectionNames = ['home', 'tools', 'components', 'hardware', 'software', 'quiz', 'reflection'];
+  const buttonIndex = sectionNames.indexOf(sectionId);
+  if (buttonIndex !== -1 && buttons[buttonIndex]) {
+    buttons[buttonIndex].classList.add('active');
+  }
+}
+
+// Initialize with home section visible
+document.addEventListener('DOMContentLoaded', function() {
+  showSection('home');
+});
+
+// CHECKLIST SYSTEM
+function updateHardwareProgress() {
+  const checklist = document.getElementById('hardware-checklist');
+  const checkboxes = checklist.querySelectorAll('.checklist-checkbox');
+  const checkedBoxes = checklist.querySelectorAll('.checklist-checkbox:checked');
+  const total = checkboxes.length;
+  const completed = checkedBoxes.length;
+  const percentage = Math.round((completed / total) * 100);
+  
+  // Enforce strict chronological order - only allow checking if all previous items are checked
+  checkboxes.forEach((checkbox, index) => {
+    const item = checkbox.parentElement;
+    const allPreviousChecked = Array.from(checkboxes).slice(0, index).every(cb => cb.checked);
+    
+    // Disable checkbox if previous items are not checked
+    if (!allPreviousChecked) {
+      checkbox.disabled = true;
+      checkbox.checked = false; // Uncheck if it was somehow checked
+      item.style.opacity = '0.5';
+      item.style.cursor = 'not-allowed';
+    } else {
+      checkbox.disabled = false;
+      item.style.opacity = '1';
+      item.style.cursor = 'pointer';
+    }
+    
+    // Update completed styling
+    if (checkbox.checked) {
+      item.classList.add('completed');
+    } else {
+      item.classList.remove('completed');
+    }
+  });
+  
+  // Update progress text
+  document.getElementById('hardware-progress-text').textContent = `${completed}/${total} completed`;
+  
+  // Update progress bar
+  const progressBar = document.getElementById('hardware-progress-bar');
+  progressBar.style.width = percentage + '%';
+  progressBar.textContent = percentage + '%';
+}
+
+function updateSoftwareProgress() {
+  const checklist = document.getElementById('software-checklist');
+  const checkboxes = checklist.querySelectorAll('.checklist-checkbox');
+  const checkedBoxes = checklist.querySelectorAll('.checklist-checkbox:checked');
+  const total = checkboxes.length;
+  const completed = checkedBoxes.length;
+  const percentage = Math.round((completed / total) * 100);
+  
+  // Enforce strict chronological order - only allow checking if all previous items are checked
+  checkboxes.forEach((checkbox, index) => {
+    const item = checkbox.parentElement;
+    const allPreviousChecked = Array.from(checkboxes).slice(0, index).every(cb => cb.checked);
+    
+    // Disable checkbox if previous items are not checked
+    if (!allPreviousChecked) {
+      checkbox.disabled = true;
+      checkbox.checked = false; // Uncheck if it was somehow checked
+      item.style.opacity = '0.5';
+      item.style.cursor = 'not-allowed';
+    } else {
+      checkbox.disabled = false;
+      item.style.opacity = '1';
+      item.style.cursor = 'pointer';
+    }
+    
+    // Update completed styling
+    if (checkbox.checked) {
+      item.classList.add('completed');
+    } else {
+      item.classList.remove('completed');
+    }
+  });
+  
+  // Update progress text
+  document.getElementById('software-progress-text').textContent = `${completed}/${total} completed`;
+  
+  // Update progress bar
+  const progressBar = document.getElementById('software-progress-bar');
+  progressBar.style.width = percentage + '%';
+  progressBar.textContent = percentage + '%';
+}
+
+// DARK MODE SYSTEM
+function toggleDarkMode() {
+  const body = document.body;
+  const toggleButton = document.querySelector('.dark-mode-toggle');
+  
+  if (body.classList.contains('dark-mode')) {
+    body.classList.remove('dark-mode');
+    toggleButton.textContent = '🌙 Dark Mode';
+    localStorage.setItem('darkMode', 'false');
+  } else {
+    body.classList.add('dark-mode');
+    toggleButton.textContent = '☀️ Light Mode';
+    localStorage.setItem('darkMode', 'true');
+  }
+}
+
+// Check for saved dark mode preference
+document.addEventListener('DOMContentLoaded', function() {
+  const savedDarkMode = localStorage.getItem('darkMode');
+  if (savedDarkMode === 'true') {
+    document.body.classList.add('dark-mode');
+    document.querySelector('.dark-mode-toggle').textContent = '☀️ Light Mode';
+  }
+});
+
+// ENHANCED REFLECTION SYSTEM
+function submitReflection() {
+  const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
+  const text = document.getElementById("reflectionText").value.trim();
+
+  if (!fname || !lname || !text) {
+    alert("Please complete all fields.");
+    return;
+  }
+
+  // Generate unique author ID for this session
+  const authorId = localStorage.getItem('authorId') || generateAuthorId();
+  
+  const comment = { 
+    id: Date.now().toString(),
+    name: fname + " " + lname, 
+    text: text,
+    date: new Date().toISOString(),
+    authorId: authorId
+  };
+
+  let comments = JSON.parse(localStorage.getItem("comments")) || [];
+  comments.push(comment);
+  localStorage.setItem("comments", JSON.stringify(comments));
+
+  document.getElementById("fname").value = "";
+  document.getElementById("lname").value = "";
+  document.getElementById("reflectionText").value = "";
+
+  displayComments();
+}
+
+function generateAuthorId() {
+  const authorId = 'author_' + Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem('authorId', authorId);
+  return authorId;
+}
+
+function displayComments() {
+  const commentsDiv = document.getElementById("comments");
+  commentsDiv.innerHTML = "";
+  let comments = JSON.parse(localStorage.getItem("comments")) || [];
+  const currentAuthorId = localStorage.getItem('authorId');
+
+  // Migrate old comments without IDs or authorId
+  comments = comments.map((c, index) => {
+    if (!c.id) {
+      return {
+        id: `migration_${index}_${Date.now()}`,
+        name: c.name,
+        text: c.text,
+        date: c.date || new Date().toISOString(),
+        authorId: null // Old comments won't have authorId
+      };
+    }
+    return c;
+  });
+  
+  // Save migrated comments back to localStorage
+  localStorage.setItem("comments", JSON.stringify(comments));
+
+  if (comments.length === 0) {
+    commentsDiv.innerHTML = "<p style='text-align: center; color: #666;'>No reflections submitted yet. Be the first to share your experience!</p>";
+    return;
+  }
+
+  comments.forEach((c, index) => {
+    const div = document.createElement("div");
+    div.className = "reflection-item";
+    
+    const date = new Date(c.date);
+    const formattedDate = date.toLocaleDateString() + " " + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    // Only show delete button if the current user is the author
+    const canDelete = c.authorId === currentAuthorId;
+    const deleteButtonHtml = canDelete ? `<button class="delete-reflection-btn" onclick="deleteReflection('${c.id}')">Delete</button>` : '';
+    
+    div.innerHTML = `
+      <div class="reflection-header">
+        <div>
+          <span class="reflection-name">${c.name}</span>
+          <div class="reflection-date">${formattedDate}</div>
+        </div>
+        ${deleteButtonHtml}
+      </div>
+      <div class="reflection-text">${c.text}</div>
+    `;
+    commentsDiv.appendChild(div);
+  });
+}
+
+function deleteReflection(commentId) {
+  // Get current author ID
+  const currentAuthorId = localStorage.getItem('authorId');
+  
+  // Find the comment to check ownership
+  let comments = JSON.parse(localStorage.getItem("comments")) || [];
+  const commentToDelete = comments.find(c => c.id === commentId);
+  
+  // Only allow deletion if the user is the author
+  if (!commentToDelete || commentToDelete.authorId !== currentAuthorId) {
+    alert('You can only delete your own reflections.');
+    return;
+  }
+  
+  if (confirm("Are you sure you want to delete this reflection?")) {
+    comments = comments.filter(c => c.id !== commentId);
+    localStorage.setItem("comments", JSON.stringify(comments));
+    displayComments();
+  }
+}
+
+// Initialize comments display
+displayComments();
+
+// MAINTENANCE IMPORTANCE TOGGLE FUNCTION
+function toggleBenefitDetails(benefitType) {
+  const details = document.getElementById(benefitType + '-details');
+  const toggle = document.getElementById(benefitType + '-toggle');
+  
+  if (details.style.display === 'none') {
+    details.style.display = 'block';
+    toggle.innerHTML = 'Click to learn more ▲';
+  } else {
+    details.style.display = 'none';
+    toggle.innerHTML = 'Click to learn more ▼';
+  }
+}
+
+// ENHANCED QUIZ SYSTEM
+const quizData = {
+  hardware: [
+    {
+      question: "What should you do first before opening a system unit?",
+      options: ["Restart the computer", "Turn off and unplug the computer", "Install antivirus", "Run Disk Cleanup"],
+      correct: 1
+    },
+    {
+      question: "Which tool is recommended to remove dust inside the system unit?",
+      options: ["Water spray", "Soft brush or compressed air", "Soap and sponge", "Knife"],
+      correct: 1
+    },
+    {
+      question: "Why should you wear a face mask during hardware maintenance?",
+      options: ["To look professional", "To avoid inhaling dust", "To prevent computer overheating", "To increase internet speed"],
+      correct: 1
+    },
+    {
+      question: "What is the correct way to clean a monitor screen?",
+      options: ["Use microfiber cloth gently", "Use wet towel with soap", "Scratch with hard cloth", "Use steel brush"],
+      correct: 0
+    },
+    {
+      question: "What should you avoid touching inside the system unit?",
+      options: ["Motherboard circuits and RAM pins", "System unit cover", "Keyboard keys", "Mouse pad"],
+      correct: 0
+    },
+    {
+      question: "What is the purpose of cleaning computer fans?",
+      options: ["To make the PC louder", "To prevent overheating", "To install drivers", "To delete viruses"],
+      correct: 1
+    },
+    {
+      question: "What should you do after cleaning inside the system unit?",
+      options: ["Leave it open", "Close and tighten the cover screws", "Remove RAM permanently", "Pour alcohol inside"],
+      correct: 1
+    },
+    {
+      question: "Why is an anti-static wrist strap useful?",
+      options: ["It improves WiFi signal", "It prevents static electricity damage", "It cleans the CPU", "It boosts FPS"],
+      correct: 1
+    },
+    {
+      question: "What should you do if you notice a loose cable?",
+      options: ["Ignore it", "Reconnect it properly", "Break it", "Pour water on it"],
+      correct: 1
+    },
+    {
+      question: "What is the correct cleaning material for peripherals?",
+      options: ["Isopropyl alcohol and microfiber cloth", "Cooking oil", "Gasoline", "Soap water inside ports"],
+      correct: 0
+    }
+  ],
+  software: [
+    {
+      question: "What is the first step in software maintenance?",
+      options: ["Disconnect from internet", "Connect to the internet", "Remove motherboard", "Clean the keyboard"],
+      correct: 1
+    },
+    {
+      question: "Why should you update your operating system?",
+      options: ["To make the PC heavier", "To improve security and performance", "To delete the OS", "To damage the files"],
+      correct: 1
+    },
+    {
+      question: "What is the purpose of updating antivirus software?",
+      options: ["To remove keyboard dust", "To detect new viruses", "To install drivers", "To reduce RAM"],
+      correct: 1
+    },
+    {
+      question: "What type of scan is recommended during maintenance?",
+      options: ["Half scan", "Full scan", "No scan", "Keyboard scan"],
+      correct: 1
+    },
+    {
+      question: "Why should you remove unused programs?",
+      options: ["To make computer slower", "To free storage and improve performance", "To remove the OS", "To damage the system"],
+      correct: 1
+    },
+    {
+      question: "What tool helps remove temporary files?",
+      options: ["Disk Cleanup", "Paint", "Calculator", "Notepad"],
+      correct: 0
+    },
+    {
+      question: "What should you do after installing updates?",
+      options: ["Restart the computer", "Throw the computer", "Unplug the hard drive", "Delete drivers"],
+      correct: 0
+    },
+    {
+      question: "What is the purpose of disabling unnecessary startup programs?",
+      options: ["To slow boot time", "To improve startup speed", "To damage the OS", "To reduce monitor brightness"],
+      correct: 1
+    },
+    {
+      question: "What is the recommended maintenance step for HDD?",
+      options: ["Defragment drive", "Wash the hard drive", "Remove CPU fan", "Break the disk"],
+      correct: 0
+    },
+    {
+      question: "Why is software maintenance important?",
+      options: ["To make computer hotter", "To ensure security and system performance", "To damage files", "To remove keyboard keys"],
+      correct: 1
+    }
+  ]
+};
+
+let currentQuizState = {
+  questions: [],
+  currentQuestionIndex: 0,
+  score: 0,
+  answers: [],
+  selectedCategory: 'all',
+  startTime: null,
+  timerInterval: null,
+  playerName: ''
+};
+
+// QUIZ PROGRESS MANAGEMENT
+const MAX_ATTEMPTS = 2;
+
+function getQuizProgress() {
+  const progress = JSON.parse(localStorage.getItem('quizProgress')) || {
+    attempts: 0,
+    completedAttempts: [],
+    canRetake: true
+  };
+  return progress;
+}
+
+function updateQuizProgress(attemptData) {
+  let progress = getQuizProgress();
+  progress.attempts++;
+  progress.completedAttempts.push(attemptData);
+  
+  if (progress.attempts >= MAX_ATTEMPTS) {
+    progress.canRetake = false;
+  }
+  
+  localStorage.setItem('quizProgress', JSON.stringify(progress));
+  updateQuizProgressDisplay();
+}
+
+function deleteQuizProgress() {
+  if (confirm('Are you sure you want to delete your quiz progress? This will allow you to retake the quiz and remove your previous scores from the leaderboard.')) {
+    // Remove from leaderboard
+    let leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
+    const playerName = localStorage.getItem('lastQuizPlayerName');
+    if (playerName) {
+      leaderboard = leaderboard.filter(entry => entry.name !== playerName);
+      localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboard));
+    }
+    
+    // Reset progress
+    localStorage.removeItem('quizProgress');
+    localStorage.removeItem('lastQuizPlayerName');
+    
+    // Update display
+    updateQuizProgressDisplay();
+    displayLeaderboard();
+    
+    alert('Your quiz progress has been deleted. You can now retake the quiz!');
+  }
+}
+
+function updateQuizProgressDisplay() {
+  const progress = getQuizProgress();
+  const attemptsRemaining = document.getElementById('attemptsRemaining');
+  const deleteBtn = document.getElementById('deleteProgressBtn');
+  
+  const remaining = MAX_ATTEMPTS - progress.attempts;
+  
+  if (remaining > 0) {
+    attemptsRemaining.innerHTML = `📊 Quiz Attempts: ${progress.attempts}/${MAX_ATTEMPTS} • <span style="color: #28a745;">${remaining} attempt${remaining > 1 ? 's' : ''} remaining</span>`;
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = 'Delete My Progress';
+  } else {
+    attemptsRemaining.innerHTML = `📊 Quiz Attempts: ${progress.attempts}/${MAX_ATTEMPTS} • <span style="color: #dc3545;">No attempts remaining</span>`;
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = 'No More Attempts';
+  }
+}
+
+function canStartQuiz() {
+  const progress = getQuizProgress();
+  return progress.canRetake && progress.attempts < MAX_ATTEMPTS;
+}
+
+// OFFLINE P2P QUIZ FUNCTIONALITY
+function saveIndividualAnswer(answerData) {
+  // Get existing answers from localStorage
+  let individualAnswers = JSON.parse(localStorage.getItem('individualQuizAnswers')) || [];
+  
+  // Add the new answer with user identification
+  const enhancedAnswerData = {
+    ...answerData,
+    playerName: currentQuizState.playerName,
+    deviceId: localStorage.getItem('deviceId') || generateDeviceId(),
+    category: currentQuizState.selectedCategory,
+    questionIndex: currentQuizState.currentQuestionIndex
+  };
+  
+  individualAnswers.push(enhancedAnswerData);
+  
+  // Save back to localStorage
+  localStorage.setItem('individualQuizAnswers', JSON.stringify(individualAnswers));
+  
+  // Simulate P2P sync (in real implementation, this would sync with other devices)
+  simulateP2PSync(enhancedAnswerData);
+}
+
+function generateDeviceId() {
+  const deviceId = 'device_' + Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem('deviceId', deviceId);
+  return deviceId;
+}
+
+function simulateP2PSync(answerData) {
+  // This simulates P2P synchronization
+  // In a real implementation, this would use WebRTC or similar technology
+  const syncData = {
+    type: 'answer_sync',
+    data: answerData,
+    timestamp: Date.now()
+  };
+  
+  // Store sync events for potential offline sharing
+  let syncEvents = JSON.parse(localStorage.getItem('p2pSyncEvents')) || [];
+  syncEvents.push(syncData);
+  
+  // Keep only last 100 sync events to prevent storage bloat
+  if (syncEvents.length > 100) {
+    syncEvents = syncEvents.slice(-100);
+  }
+  
+  localStorage.setItem('p2pSyncEvents', JSON.stringify(syncEvents));
+}
+
+function getIndividualAnswers() {
+  return JSON.parse(localStorage.getItem('individualQuizAnswers')) || [];
+}
+
+function exportQuizData() {
+  const answers = getIndividualAnswers();
+  const dataStr = JSON.stringify(answers, null, 2);
+  const dataBlob = new Blob([dataStr], {type: 'application/json'});
+  const url = URL.createObjectURL(dataBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `quiz_answers_${new Date().toISOString().split('T')[0]}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function selectCategory(category) {
+  currentQuizState.selectedCategory = category;
+  document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function startEnhancedQuiz() {
+  // Check if user can start quiz
+  if (!canStartQuiz()) {
+    const progress = getQuizProgress();
+    alert(`You have already completed quiz ${progress.attempts} times. Maximum ${MAX_ATTEMPTS} attempts allowed. Please delete your progress to retake the quiz.`);
+    return;
+  }
+  
+  const nameInput = document.getElementById('playerName');
+  const playerName = nameInput.value.trim();
+  
+  if (!playerName) {
+    alert('Please enter your name to start the quiz!');
+    return;
+  }
+  
+  // Generate unique session ID for offline P2P functionality
+  const sessionId = Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem('quizSessionId', sessionId);
+  
+  // Store player name for progress tracking
+  localStorage.setItem('lastQuizPlayerName', playerName);
+  
+  currentQuizState.playerName = playerName;
+  currentQuizState.score = 0;
+  currentQuizState.currentQuestionIndex = 0;
+  currentQuizState.answers = [];
+  currentQuizState.startTime = Date.now();
+  
+  // Prepare questions based on category
+  if (currentQuizState.selectedCategory === 'hardware') {
+    currentQuizState.questions = [...quizData.hardware];
+  } else if (currentQuizState.selectedCategory === 'software') {
+    currentQuizState.questions = [...quizData.software];
+  } else {
+    currentQuizState.questions = [...quizData.hardware, ...quizData.software];
+  }
+  
+  // Shuffle questions for variety
+  currentQuizState.questions.sort(() => Math.random() - 0.5);
+  
+  // Start timer
+  startTimer();
+  
+  // Show quiz area
+  document.getElementById('quizStartScreen').style.display = 'none';
+  document.getElementById('quizGameArea').style.display = 'block';
+  document.getElementById('quizResults').style.display = 'none';
+  
+  // Update total questions display
+  document.getElementById('totalQuestions').textContent = currentQuizState.questions.length;
+  
+  // Load first question
+  loadQuestion();
+}
+
+function startTimer() {
+  currentQuizState.timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - currentQuizState.startTime) / 1000);
+    const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+    const seconds = (elapsed % 60).toString().padStart(2, '0');
+    document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+  }, 1000);
+}
+
+function loadQuestion() {
+  const question = currentQuizState.questions[currentQuizState.currentQuestionIndex];
+  const questionText = document.getElementById('questionText');
+  const optionsContainer = document.getElementById('optionsContainer');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  // Update question number and progress
+  document.getElementById('currentQuestion').textContent = currentQuizState.currentQuestionIndex + 1;
+  const progress = ((currentQuizState.currentQuestionIndex + 1) / currentQuizState.questions.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  
+  // Display question
+  questionText.textContent = `${currentQuizState.currentQuestionIndex + 1}. ${question.question}`;
+  
+  // Clear and populate options
+  optionsContainer.innerHTML = '';
+  question.options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.className = 'option-button';
+    button.textContent = option;
+    button.onclick = () => selectAnswer(index);
+    optionsContainer.appendChild(button);
+  });
+  
+  // Disable next button initially
+  nextBtn.disabled = true;
+  nextBtn.textContent = currentQuizState.currentQuestionIndex === currentQuizState.questions.length - 1 ? 'Finish Quiz →' : 'Next Question →';
+}
+
+function selectAnswer(selectedIndex) {
+  const question = currentQuizState.questions[currentQuizState.currentQuestionIndex];
+  const buttons = document.querySelectorAll('.option-button');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  // Disable all buttons
+  buttons.forEach(btn => btn.classList.add('disabled'));
+  
+  // Store answer with timestamp for offline P2P functionality
+  const answerData = {
+    question: question.question,
+    selected: selectedIndex,
+    correct: question.correct,
+    isCorrect: selectedIndex === question.correct,
+    timestamp: Date.now(),
+    sessionId: localStorage.getItem('quizSessionId') || Date.now().toString()
+  };
+  
+  currentQuizState.answers.push(answerData);
+  
+  // Save individual answer to localStorage for offline P2P functionality
+  saveIndividualAnswer(answerData);
+  
+  // Show color-coded feedback
+  if (selectedIndex === question.correct) {
+    currentQuizState.score++;
+    buttons[selectedIndex].classList.add('correct');
+    showFeedback(true);
+  } else {
+    buttons[selectedIndex].classList.add('incorrect');
+    buttons[question.correct].classList.add('correct');
+    showFeedback(false);
+  }
+  
+  // Enable next button
+  nextBtn.disabled = false;
+}
+
+function showFeedback(isCorrect) {
+  // Visual feedback animation
+  const card = document.querySelector('.question-card');
+  if (isCorrect) {
+    card.style.borderColor = '#4CAF50';
+    card.style.boxShadow = '0 0 20px rgba(76,175,80,0.3)';
+  } else {
+    card.style.borderColor = '#f44336';
+    card.style.boxShadow = '0 0 20px rgba(244,67,54,0.3)';
+  }
+  
+  setTimeout(() => {
+    card.style.borderColor = '';
+    card.style.boxShadow = '';
+  }, 1000);
+}
+
+function nextQuestion() {
+  currentQuizState.currentQuestionIndex++;
+  
+  if (currentQuizState.currentQuestionIndex < currentQuizState.questions.length) {
+    loadQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+function endQuiz() {
+  clearInterval(currentQuizState.timerInterval);
+  
+  const totalTime = Math.floor((Date.now() - currentQuizState.startTime) / 1000);
+  const minutes = Math.floor(totalTime / 60).toString().padStart(2, '0');
+  const seconds = (totalTime % 60).toString().padStart(2, '0');
+  const accuracy = Math.round((currentQuizState.score / currentQuizState.questions.length) * 100);
+  
+  // Calculate performance rating
+  let performance = 'Beginner';
+  if (accuracy >= 90) performance = 'Expert 🔥';
+  else if (accuracy >= 80) performance = 'Advanced 🌟';
+  else if (accuracy >= 70) performance = 'Good 👍';
+  else if (accuracy >= 60) performance = 'Fair 👌';
+  
+  // Update results display
+  document.getElementById('finalScore').textContent = `${currentQuizState.score}/${currentQuizState.questions.length}`;
+  document.getElementById('accuracy').textContent = `${accuracy}%`;
+  document.getElementById('timeTaken').textContent = `${minutes}:${seconds}`;
+  document.getElementById('performance').textContent = performance;
+  
+  // Save to leaderboard
+  saveToLeaderboard(currentQuizState.playerName, currentQuizState.score, currentQuizState.questions.length, totalTime);
+  
+  // Update quiz progress
+  const attemptData = {
+    name: currentQuizState.playerName,
+    score: currentQuizState.score,
+    totalQuestions: currentQuizState.questions.length,
+    accuracy: accuracy,
+    timeInSeconds: totalTime,
+    date: new Date().toISOString()
+  };
+  updateQuizProgress(attemptData);
+  
+  // Show results
+  document.getElementById('quizGameArea').style.display = 'none';
+  document.getElementById('quizResults').style.display = 'block';
+  
+  // Update leaderboard display
+  displayLeaderboard();
+}
+
+function saveToLeaderboard(name, score, totalQuestions, timeInSeconds) {
+  let leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
+  
+  leaderboard.push({
+    name: name,
+    score: score,
+    totalQuestions: totalQuestions,
+    accuracy: Math.round((score / totalQuestions) * 100),
+    timeInSeconds: timeInSeconds,
+    date: new Date().toISOString()
+  });
+  
+  // Sort by score (descending), then by time (ascending)
+  leaderboard.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.timeInSeconds - b.timeInSeconds;
+  });
+  
+  // Keep only top 5
+  leaderboard = leaderboard.slice(0, 5);
+  
+  localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboard));
+}
+
+function displayLeaderboard() {
+  const leaderboardList = document.getElementById('leaderboardList');
+  const leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
+  
+  if (leaderboard.length === 0) {
+    leaderboardList.innerHTML = '<p style="text-align: center; color: #666;">No scores yet. Be the first to complete the quiz!</p>';
+    return;
+  }
+  
+  leaderboardList.innerHTML = '';
+  leaderboard.forEach((entry, index) => {
+    const item = document.createElement('div');
+    item.className = `leaderboard-item ${index < 3 ? `top-${index + 1}` : ''}`;
+    
+    const rankBadge = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}`;
+    const timeFormatted = `${Math.floor(entry.timeInSeconds / 60)}:${(entry.timeInSeconds % 60).toString().padStart(2, '0')}`;
+    
+    item.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span class="rank-badge">${rankBadge}</span>
+        <div>
+          <strong>${entry.name}</strong>
+          <div style="font-size: 12px; color: #666;">${entry.accuracy}% accuracy • ${timeFormatted}</div>
+        </div>
+      </div>
+      <span class="score-badge">${entry.score}/${entry.totalQuestions}</span>
+    `;
+    
+    leaderboardList.appendChild(item);
+  });
+}
+
+function viewLeaderboard() {
+  document.getElementById('leaderboardSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function clearLeaderboard() {
+  if (confirm('Are you sure you want to clear all leaderboard data? This cannot be undone.')) {
+    localStorage.removeItem('quizLeaderboard');
+    displayLeaderboard();
+  }
+}
+
+function resetQuiz() {
+  // Reset state
+  currentQuizState = {
+    questions: [],
+    currentQuestionIndex: 0,
+    score: 0,
+    answers: [],
+    selectedCategory: 'all',
+    startTime: null,
+    timerInterval: null,
+    playerName: ''
+  };
+  
+  // Reset UI
+  document.getElementById('quizStartScreen').style.display = 'block';
+  document.getElementById('quizGameArea').style.display = 'none';
+  document.getElementById('quizResults').style.display = 'none';
+  document.getElementById('playerName').value = '';
+  
+  // Reset category selection
+  document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+  document.querySelector('.category-btn').classList.add('selected');
+  
+  // Clear timer
+  clearInterval(currentQuizState.timerInterval);
+  document.getElementById('timer').textContent = '00:00';
+}
+
+// Initialize leaderboard and quiz progress on page load
+displayLeaderboard();
+updateQuizProgressDisplay();
+</script>
+
+</body>
+</html>
